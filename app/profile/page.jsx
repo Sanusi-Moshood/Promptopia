@@ -29,7 +29,26 @@ router.push(`/update-prompt?id=${post._id}`)
 }
 
 const handleDelete = async (post) => {
+    const hasConfirmed = confirm("Are you sure you want to delte this promt")
 
+    if(hasConfirmed) {
+     try {
+      await fetch(`/api/prompt/${post._id.toString()}/posts`,
+      {
+        method: 'DELETE',
+
+      }
+      )
+
+      const filteredPost  = post.filter(p => {
+        p._id  !== post._id
+      })
+
+      setPost(filteredPosts)
+     } catch (error) {
+      console.log(error);
+     }
+    }
 }
 
 
